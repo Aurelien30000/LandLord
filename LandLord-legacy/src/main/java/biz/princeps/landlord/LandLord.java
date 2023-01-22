@@ -1,6 +1,6 @@
 package biz.princeps.landlord;
 
-import biz.princeps.landlord.listener.PistonOverwriter;
+import biz.princeps.landlord.listener.BlockOverwriter;
 import biz.princeps.landlord.manager.MaterialsManager;
 import biz.princeps.landlord.manager.MobsManager;
 import biz.princeps.landlord.manager.UtilsManager;
@@ -53,7 +53,7 @@ public class LandLord extends ALandLord implements Listener {
 
         super.onEnable();
 
-        new PistonOverwriter(this);
+        new BlockOverwriter(this);
     }
 
     @Override

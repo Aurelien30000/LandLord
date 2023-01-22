@@ -1,6 +1,6 @@
 package biz.princeps.landlord;
 
-import biz.princeps.landlord.listener.PistonOverwriter;
+import biz.princeps.landlord.listener.BlockOverwriter;
 import biz.princeps.landlord.listener.WGRegenListener;
 import biz.princeps.landlord.manager.MaterialsManager;
 import biz.princeps.landlord.manager.MobsManager;
@@ -58,7 +58,7 @@ public class LandLord extends ALandLord {
 
         super.onEnable();
 
-        new PistonOverwriter(this);
+        new BlockOverwriter(this);
 
         // Handle 1.18 auto-migration.
         // https://minecraft.fandom.com/wiki/Data_version

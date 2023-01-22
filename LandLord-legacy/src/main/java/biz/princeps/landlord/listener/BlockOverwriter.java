@@ -6,11 +6,13 @@ import biz.princeps.landlord.api.IWorldGuardManager;
 import com.sk89q.worldguard.bukkit.event.DelegateEvent;
 import com.sk89q.worldguard.bukkit.event.block.BreakBlockEvent;
 import com.sk89q.worldguard.bukkit.event.block.PlaceBlockEvent;
+import com.sk89q.worldguard.bukkit.event.inventory.UseItemEvent;
 import com.sk89q.worldguard.bukkit.util.Materials;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.material.Dispenser;
 
 import java.util.HashSet;
 import java.util.List;
@@ -22,14 +24,16 @@ import java.util.UUID;
  * Created by Alex D. (SpatiumPrinceps)
  * Date: 05/05/19
  * <p>
- * This listener overwrites worldguard events in order to allow pistons to move blocks between regions
- * that are owned by the same person.
+ * This listener overwrites worldguard events in order to allow:
+ * - pistons to move blocks
+ * - dispensers to interact
+ * between regions that are owned by the same person.
  */
-public class PistonOverwriter extends BasicListener {
+public class BlockOverwriter extends BasicListener {
 
     private final IWorldGuardManager wg;
 
-    public PistonOverwriter(ILandLord plugin) {
+    public BlockOverwriter(ILandLord plugin) {
         super(plugin);
         this.wg = plugin.getWGManager();
     }
@@ -46,12 +50,24 @@ public class PistonOverwriter extends BasicListener {
         handleEvent(event, block, event.getBlocks());
     }
 
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onUseItem(final UseItemEvent event) {
+        Block block = event.getCause().getFirstBlock();
+        handleEvent(event, block, null);
+    }
+
     private void handleEvent(DelegateEvent event, Block block, List<Block> blocks) {
         if (block == null) {
             return;
         }
         if (Materials.isPistonBlock(block.getType()) || block.getType() == Material.PISTON_MOVING_PIECE) {
             if (sameOwner(block, blocks)) {
+                event.setAllowed(true);
+            }
+            return;
+        }
+        if (block.getState().getData() instanceof Dispenser dispenser) {
+            if (sameOwner(block, List.of(block.getRelative(dispenser.getFacing())))) {
                 event.setAllowed(true);
             }
         }
