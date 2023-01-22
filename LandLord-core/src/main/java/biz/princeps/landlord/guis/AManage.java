@@ -204,14 +204,9 @@ public class AManage extends AbstractGUI {
 
                                 landFlag.toggleFriends();
 
-                                new BukkitRunnable() {
-                                    @Override
-                                    public void run() {
-                                        LandManageEvent landManageEvent = new LandManageEvent(player, land,
-                                                landFlag.getName(), !landFlag.getFriendStatus(), landFlag.getFriendStatus());
-                                        plugin.getServer().getPluginManager().callEvent(landManageEvent);
-                                    }
-                                }.runTask(plugin);
+                                LandManageEvent landManageEvent = new LandManageEvent(player, land,
+                                        landFlag.getName(), !landFlag.getFriendStatus(), landFlag.getFriendStatus());
+                                plugin.getServer().getPluginManager().callEvent(landManageEvent);
                             }
                         }
                     }
@@ -237,14 +232,9 @@ public class AManage extends AbstractGUI {
 
                                 landFlag.toggleAll();
 
-                                new BukkitRunnable() {
-                                    @Override
-                                    public void run() {
-                                        LandManageEvent landManageEvent = new LandManageEvent(player, land,
-                                                landFlag.getName(), !landFlag.getFriendStatus(), landFlag.getFriendStatus());
-                                        plugin.getServer().getPluginManager().callEvent(landManageEvent);
-                                    }
-                                }.runTask(plugin);
+                                LandManageEvent landManageEvent = new LandManageEvent(player, land,
+                                        landFlag.getName(), !landFlag.getFriendStatus(), landFlag.getFriendStatus());
+                                plugin.getServer().getPluginManager().callEvent(landManageEvent);
                             }
                         }
                     }
@@ -404,14 +394,9 @@ public class AManage extends AbstractGUI {
                                                 if (!region.isFriend(defaultFriend)) region.addFriend(defaultFriend);
                                             }
 
-                                            new BukkitRunnable() {
-                                                @Override
-                                                public void run() {
-                                                    LandManageEvent landManageEvent = new LandManageEvent(player, region,
-                                                            "FRIENDS", oldfriends, region.getMembersString());
-                                                    plugin.getServer().getPluginManager().callEvent(landManageEvent);
-                                                }
-                                            }.runTask(plugin);
+                                            LandManageEvent landManageEvent = new LandManageEvent(player, region,
+                                                    "FRIENDS", oldfriends, region.getMembersString());
+                                            plugin.getServer().getPluginManager().callEvent(landManageEvent);
                                         }
                                     }
                                 }.runTaskAsynchronously(plugin));
@@ -563,26 +548,16 @@ public class AManage extends AbstractGUI {
                                     if (defaultFlag.getFriendStatus() != landFlag.getFriendStatus()) {
                                         landFlag.toggleFriends();
 
-                                        new BukkitRunnable() {
-                                            @Override
-                                            public void run() {
-                                                LandManageEvent landManageEvent = new LandManageEvent(player, land,
-                                                        landFlag.getName(), !landFlag.getFriendStatus(), landFlag.getFriendStatus());
-                                                plugin.getServer().getPluginManager().callEvent(landManageEvent);
-                                            }
-                                        }.runTask(plugin);
+                                        LandManageEvent landManageEvent = new LandManageEvent(player, land,
+                                                landFlag.getName(), !landFlag.getFriendStatus(), landFlag.getFriendStatus());
+                                        plugin.getServer().getPluginManager().callEvent(landManageEvent);
                                     }
                                     if (defaultFlag.getAllStatus() != landFlag.getAllStatus()) {
                                         landFlag.toggleAll();
 
-                                        new BukkitRunnable() {
-                                            @Override
-                                            public void run() {
-                                                LandManageEvent landManageEvent = new LandManageEvent(player, land,
-                                                        landFlag.getName(), !landFlag.getAllStatus(), landFlag.getAllStatus());
-                                                plugin.getServer().getPluginManager().callEvent(landManageEvent);
-                                            }
-                                        }.runTask(plugin);
+                                        LandManageEvent landManageEvent = new LandManageEvent(player, land,
+                                                landFlag.getName(), !landFlag.getAllStatus(), landFlag.getAllStatus());
+                                        plugin.getServer().getPluginManager().callEvent(landManageEvent);
                                     }
                                 }
                             }
