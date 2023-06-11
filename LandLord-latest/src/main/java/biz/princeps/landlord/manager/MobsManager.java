@@ -51,6 +51,10 @@ public class MobsManager implements IMobManager {
             register1_19Entities();
         }
 
+        if (currentDataVersion >= 3463) {
+            register1_20Entities();
+        }
+
         MOBS.sort(Comparator.comparing(iMob -> iMob.getType().name()));
     }
 
@@ -130,7 +134,7 @@ public class MobsManager implements IMobManager {
     private void register1_16Entities() {
         // 1.16's entities
         Mob HOGLIN = new Mob(EntityType.HOGLIN, Skulls.HOGLIN.getSkull(plugin));
-        Mob PIGLIN = new Mob(EntityType.PIGLIN, Skulls.PIGLIN.getSkull(plugin));
+        Mob PIGLIN = new Mob(EntityType.PIGLIN, new ItemStack(Material.PIGLIN_HEAD));
         Mob STRIDER = new Mob(EntityType.STRIDER, Skulls.STRIDER.getSkull(plugin));
         Mob ZOGLIN = new Mob(EntityType.ZOGLIN, Skulls.ZOGLIN.getSkull(plugin));
         Mob ZOMBIFIED_PIGLIN = new Mob(EntityType.ZOMBIFIED_PIGLIN, Skulls.ZOMBIFIED_PIGLIN.getSkull(plugin));
@@ -154,6 +158,12 @@ public class MobsManager implements IMobManager {
         Mob FROG = new Mob(EntityType.FROG, Skulls.TEMPERATE_FROG.getSkull(plugin));
         Mob TADPOLE = new Mob(EntityType.TADPOLE, Skulls.TADPOLE.getSkull(plugin));
         Mob WARDEN = new Mob(EntityType.WARDEN, Skulls.WARDEN.getSkull(plugin));
+    }
+
+    private void register1_20Entities() {
+        // 1.20's entities
+        Mob CAMEL = new Mob(EntityType.CAMEL, Skulls.CAMEL.getSkull(plugin));
+        Mob SNIFFER = new Mob(EntityType.SNIFFER, Skulls.SNIFFER.getSkull(plugin));
     }
 
     @Override
