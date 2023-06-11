@@ -134,7 +134,9 @@ public class MobsManager implements IMobManager {
     private void register1_16Entities() {
         // 1.16's entities
         Mob HOGLIN = new Mob(EntityType.HOGLIN, Skulls.HOGLIN.getSkull(plugin));
-        Mob PIGLIN = new Mob(EntityType.PIGLIN, new ItemStack(Material.PIGLIN_HEAD));
+        Mob PIGLIN = new Mob(EntityType.PIGLIN, currentDataVersion >= 3463
+                ? new ItemStack(Material.valueOf("PIGLIN_HEAD"))
+                : Skulls.PIGLIN.getSkull(plugin));
         Mob STRIDER = new Mob(EntityType.STRIDER, Skulls.STRIDER.getSkull(plugin));
         Mob ZOGLIN = new Mob(EntityType.ZOGLIN, Skulls.ZOGLIN.getSkull(plugin));
         Mob ZOMBIFIED_PIGLIN = new Mob(EntityType.ZOMBIFIED_PIGLIN, Skulls.ZOMBIFIED_PIGLIN.getSkull(plugin));
