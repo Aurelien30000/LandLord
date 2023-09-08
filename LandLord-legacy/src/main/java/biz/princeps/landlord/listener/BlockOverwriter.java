@@ -6,12 +6,14 @@ import biz.princeps.landlord.api.IWorldGuardManager;
 import com.sk89q.worldguard.bukkit.event.DelegateEvent;
 import com.sk89q.worldguard.bukkit.event.block.BreakBlockEvent;
 import com.sk89q.worldguard.bukkit.event.block.PlaceBlockEvent;
+import com.sk89q.worldguard.bukkit.event.block.UseBlockEvent;
 import com.sk89q.worldguard.bukkit.event.inventory.UseItemEvent;
 import com.sk89q.worldguard.bukkit.util.Materials;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.material.Directional;
 import org.bukkit.material.Dispenser;
 
 import java.util.HashSet;
@@ -56,6 +58,12 @@ public class BlockOverwriter extends BasicListener {
         handleEvent(event, block, null);
     }
 
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onUseBlock(final UseBlockEvent event) {
+        Block block = event.getCause().getFirstBlock();
+        handleEvent(event, block, null);
+    }
+
     private void handleEvent(DelegateEvent event, Block block, List<Block> blocks) {
         if (block == null) {
             return;
@@ -66,8 +74,9 @@ public class BlockOverwriter extends BasicListener {
             }
             return;
         }
-        if (block.getState().getData() instanceof Dispenser dispenser) {
-            if (sameOwner(block, List.of(block.getRelative(dispenser.getFacing())))) {
+        if (block.getState().getData() instanceof Directional directional
+                && (block.getType() == Material.DROPPER || block.getType() == Material.DISPENSER)) {
+            if (sameOwner(block, List.of(block.getRelative(directional.getFacing())))) {
                 event.setAllowed(true);
             }
         }
