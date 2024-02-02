@@ -3,6 +3,7 @@ package biz.princeps.landlord.manager;
 import biz.princeps.landlord.api.ILandLord;
 import biz.princeps.landlord.api.IMaterialsManager;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
@@ -34,8 +35,14 @@ public class MaterialsManager implements IMaterialsManager {
     @Override
     public ItemStack getPlayerHead(UUID owner) {
         ItemStack skull = new ItemStack(getSkull());
+        return getPlayerHead(plugin.getServer().getOfflinePlayer(owner));
+    }
+
+    @Override
+    public ItemStack getPlayerHead(OfflinePlayer owner) {
+        ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta itemMeta = (SkullMeta) skull.getItemMeta();
-        itemMeta.setOwningPlayer(plugin.getServer().getOfflinePlayer(owner));
+        itemMeta.setOwnerProfile(owner.getPlayerProfile());
         skull.setItemMeta(itemMeta);
         return skull;
     }
