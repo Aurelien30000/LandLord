@@ -55,6 +55,10 @@ public class MobsManager implements IMobManager {
             register1_20Entities();
         }
 
+        if (currentDataVersion >= 3837) {
+            register1_20_5Entities();
+        }
+
         MOBS.sort(Comparator.comparing(iMob -> iMob.getType().name()));
     }
 
@@ -107,7 +111,13 @@ public class MobsManager implements IMobManager {
         Mob TROPICAL_FISH = new Mob(EntityType.TROPICAL_FISH, Skulls.TROPICAL_FISH.getSkull(plugin));
         Mob DROWNED = new Mob(EntityType.DROWNED, Skulls.DROWNED.getSkull(plugin));
         Mob DOLPHIN = new Mob(EntityType.DOLPHIN, Skulls.DOLPHIN.getSkull(plugin));
-        Mob MUSHROOM_COW = new Mob(EntityType.MUSHROOM_COW, Skulls.RED_MOOSHROOM.getSkull(plugin));
+
+        // MUSHROOM_COW still exists in 1.20.4-
+        if (currentDataVersion <= 3700) {
+            Mob MUSHROOM_COW = new Mob(EntityType.valueOf("MUSHROOM_COW"), Skulls.RED_MOOSHROOM.getSkull(plugin));
+        } else {
+            Mob MUSHROOM_COW = new Mob(EntityType.MOOSHROOM, Skulls.RED_MOOSHROOM.getSkull(plugin));
+        }
 
         // PIG_ZOMBIE still exists in 1.15.1-
         if (currentDataVersion <= 2227) {
@@ -166,6 +176,11 @@ public class MobsManager implements IMobManager {
         // 1.20's entities
         Mob CAMEL = new Mob(EntityType.CAMEL, Skulls.CAMEL.getSkull(plugin));
         Mob SNIFFER = new Mob(EntityType.SNIFFER, Skulls.SNIFFER.getSkull(plugin));
+    }
+
+    private void register1_20_5Entities() {
+        // 1.20.5's entities
+        Mob ARMADILLO = new Mob(EntityType.ARMADILLO, Skulls.ARMADILLO.getSkull(plugin));
     }
 
     @Override
