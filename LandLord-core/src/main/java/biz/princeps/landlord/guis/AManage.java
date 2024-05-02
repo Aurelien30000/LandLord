@@ -1,14 +1,6 @@
 package biz.princeps.landlord.guis;
 
-import biz.princeps.landlord.api.ILLFlag;
-import biz.princeps.landlord.api.ILandLord;
-import biz.princeps.landlord.api.ILangManager;
-import biz.princeps.landlord.api.IMaterialsManager;
-import biz.princeps.landlord.api.IMob;
-import biz.princeps.landlord.api.IOwnedLand;
-import biz.princeps.landlord.api.IPlayer;
-import biz.princeps.landlord.api.ManageMode;
-import biz.princeps.landlord.api.Options;
+import biz.princeps.landlord.api.*;
 import biz.princeps.landlord.api.events.LandManageEvent;
 import biz.princeps.landlord.commands.Landlordbase;
 import biz.princeps.landlord.commands.friends.Unfriend;
@@ -32,11 +24,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class AManage extends AbstractGUI {
 
@@ -330,10 +318,16 @@ public class AManage extends AbstractGUI {
             MultiPagedGUI friendsGui = new MultiPagedGUI(plugin, player, (int) Math.ceil((double) friends.size() / 9.0),
                     lm.getRawString("Commands.Manage.ManageFriends.title"), new ArrayList<>(), this) {
 
+                private boolean generated = false;
+
                 @Override
                 protected void create() {
-                    String rawTitle = lm.getRawString("Commands.Manage.ManageFriends.unfriend");
+                    if (generated) {
+                        super.create();
+                        return;
+                    }
 
+                    String rawTitle = lm.getRawString("Commands.Manage.ManageFriends.unfriend");
                     for (UUID id : friends) {
                         OfflinePlayer op = plugin.getServer().getOfflinePlayer(id);
                         Icon friend = new Icon(mats.getPlayerHead(id));
@@ -367,6 +361,7 @@ public class AManage extends AbstractGUI {
                     }
 
                     super.create();
+                    generated = true;
                 }
 
                 @Override
