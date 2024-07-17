@@ -141,7 +141,7 @@ public enum Skulls {
 
         ItemStack head = new ItemStack(plugin.getMaterialsManager().getSkull());
         SkullMeta headMeta = (SkullMeta) head.getItemMeta();
-        GameProfile profile = new GameProfile(uuid, uuid.toString());
+        GameProfile profile = new GameProfile(uuid, uuid.toString().substring(0, 16));
 
         profile.getProperties().put("textures", new Property("textures", texture));
 
