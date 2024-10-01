@@ -63,7 +63,7 @@ public class AdminTeleport extends LandlordCommand {
                                 .addClickAction((p) -> {
                                             Location toTp = land.getALocation();
                                             PaperLib.teleportAsync(sender, toTp).thenRun(() ->
-                                                    land.highlightLand(sender, Particle.VILLAGER_HAPPY));
+                                                    land.highlightLand(sender, Particle.HAPPY_VILLAGER));
                                         }
                                 )
                         );

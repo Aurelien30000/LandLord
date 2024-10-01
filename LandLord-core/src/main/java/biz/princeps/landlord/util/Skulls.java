@@ -6,7 +6,9 @@ import com.mojang.authlib.properties.Property;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -149,7 +151,19 @@ public enum Skulls {
             Field profileField = headMeta.getClass().getDeclaredField("profile");
             profileField.setAccessible(true);
             profileField.set(headMeta, profile);
-        } catch (IllegalArgumentException | NoSuchFieldException | SecurityException | IllegalAccessException error) {
+        } catch (IllegalArgumentException ignored) {
+            try {
+                Class<?> resolvableProfileClass = Class.forName("net.minecraft.world.item.component.ResolvableProfile");
+                Constructor<?> resolvableProfileConstructor = resolvableProfileClass.getDeclaredConstructor(GameProfile.class);
+                Field profileField = headMeta.getClass().getDeclaredField("profile");
+                profileField.setAccessible(true);
+                profileField.set(headMeta, resolvableProfileConstructor.newInstance(profile));
+            } catch (NoSuchFieldException | ClassNotFoundException | InvocationTargetException |
+                     IllegalAccessException |
+                     InstantiationException | NoSuchMethodException error) {
+                error.printStackTrace();
+            }
+        } catch (NoSuchFieldException | SecurityException | IllegalAccessException error) {
             error.printStackTrace();
         }
         head.setItemMeta(headMeta);

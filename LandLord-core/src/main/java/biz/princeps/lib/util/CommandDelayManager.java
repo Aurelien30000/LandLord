@@ -151,7 +151,7 @@ public class CommandDelayManager implements Listener {
                                 List<Location> list = MathUtil.helix(loc, 1, 30, var);
                                 for (Location location : list) {
                                     //         location.getWorld().playEffect(location, Effect.WITCH_MAGIC, 0);
-                                    getStuffManager().spawnPublicParticle(location, Particle.SPELL_WITCH, 2);
+                                    getStuffManager().spawnPublicParticle(location, Particle.WITCH, 2);
                                 }
                             }
                             var++;

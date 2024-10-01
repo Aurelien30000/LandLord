@@ -62,12 +62,12 @@ public abstract class AbstractItem {
         this.glowing = glow;
         if (glowing) {
             ItemMeta itemMeta = stack.getItemMeta();
-            itemMeta.addEnchant(Enchantment.DAMAGE_ALL, 1, false);
+            itemMeta.addEnchant(Enchantment.SHARPNESS, 1, false);
             itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             stack.setItemMeta(itemMeta);
         } else {
             ItemMeta itemMeta = stack.getItemMeta();
-            itemMeta.removeEnchant(Enchantment.DAMAGE_ALL);
+            itemMeta.removeEnchant(Enchantment.SHARPNESS);
             itemMeta.removeItemFlags(ItemFlag.HIDE_ENCHANTS);
             stack.setItemMeta(itemMeta);
         }

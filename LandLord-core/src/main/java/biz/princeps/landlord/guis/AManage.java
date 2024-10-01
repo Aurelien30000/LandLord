@@ -579,10 +579,10 @@ public class AManage extends AbstractGUI {
     private void setGlowing(ItemStack stack, boolean glowing) {
         ItemMeta itemMeta = stack.getItemMeta();
         if (glowing) {
-            itemMeta.addEnchant(Enchantment.DAMAGE_ALL, 1, false);
+            itemMeta.addEnchant(Enchantment.SHARPNESS, 1, false);
             itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         } else {
-            itemMeta.removeEnchant(Enchantment.DAMAGE_ALL);
+            itemMeta.removeEnchant(Enchantment.SHARPNESS);
             itemMeta.removeItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
         stack.setItemMeta(itemMeta);
